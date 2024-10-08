@@ -8,7 +8,7 @@ import whois
 #Virus Total enrichment 
 ip_address='217.197.107.204'
 #relationship with samples
-api_key = '40bcedcfadeb59b04dea13b934543d386c1c79106b3344be5ed9106c887231e7'
+api_key = ''
 # Correct the URL format for the VirusTotal API request
 
 url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip_address}/communicating_files?limit=10"
