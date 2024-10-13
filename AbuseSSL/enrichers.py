@@ -7,17 +7,32 @@ import whois
 
 #Virus Total enrichment 
 ip_address='217.197.107.204'
-#relationship with samples
-api_key = ''
-# Correct the URL format for the VirusTotal API request
 
-url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip_address}/communicating_files?limit=10"
 
-headers = {
-    'accept': 'application/json',
-    'x-apikey': api_key
-}
+import requests
 
-response = requests.get(url, headers=headers)
+def virus_total_enrichment_whois(ip):
+    api_key = ''
+    url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
 
-print(response.text)
+    headers = {
+        'accept': 'application/json',
+        'x-apikey': api_key
+    }
+
+    response = requests.get(url, headers=headers)
+
+    # Check if the response is successful
+    if response.status_code == 200:
+        data = response.json()
+
+        # Extract WHOIS information if available
+        whois_data = data.get('data', {}).get('attributes', {}).get('whois', 'No WHOIS data found')
+
+        return whois_data
+    else:
+        return {"error": f"Failed to retrieve data: {response.status_code}"}
+
+
+
+print(virus_total_enrichment_whois(ip_address))
